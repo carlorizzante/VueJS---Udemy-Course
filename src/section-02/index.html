@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <!-- Vue.js v2.5.16 -->
+  <script src="../libs/vue.js"></script>
+
+</head>
+<body>
+
+  <div id="app" v-on:mousemove="updateCoordinates">
+    <input type="text" v-on:input="changeTitle">
+    <p v-once>{{ title }}</p>
+    <p>{{ sayHello() }}, <a v-bind:href="link">Google</a></p>
+
+    <hr>
+
+    <p>{{ link2 }}</p>
+    <p v-html="link2"></p>
+
+    <hr>
+
+    <p>Current count: {{ counter }} | Counter * 2 = {{ counter * 2 }}</p>
+    <p>{{ counter > 10 ? "Greater than 10" : "Smaller than 10"}}</p>
+    <button v-on:click="increase">Increase by 1</button>
+    <button v-on:click="increase(1)">Increase by 1</button>
+    <button v-on:click="increase(2)">Increase by 2</button>
+    <button v-on:click="increase(3, $event)">Increase by 3 + event</button>
+    <button v-on:click="counter++">Increase by 1 on the spot</button>
+
+    <hr>
+
+    <span v-on:mousemove="dummy" style="display:block;padding:10px;width:300px;background-color:teal;color:white;text-align:center;">Dead SPOT with dummy fn</span>
+    <span v-on:mousemove.stop style="display:block;padding:10px;width:300px;background-color:purple;color:white;text-align:center;">Dead SPOT with modifier</span>
+    <p>Coordinates: {{ x }}, {{ y }}</p>
+
+    <hr>
+
+    <input type="text" v-on:keyup="updateKey">
+    <span>{{ key }}</span>
+
+    <hr>
+
+    <p>Two-way Data Binding</p>
+    <input type="text" v-on:input="updateText" v-model="text">
+    <input type="text" v-on:input="updateText">
+    <p>{{ text }}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        title: "Hello",
+        link: 'http://google.com',
+        link2: '<a href="http://google.com">Goodle</a>',
+        counter: 0,
+        x: undefined,
+        y: undefined,
+        key: "",
+        text: "Something..."
+      },
+      methods: {
+        changeTitle: function(event) {
+          this.title = event.target.value;
+        },
+        sayHello: function() {
+          // return "Hello there, World!";
+          return this.title;
+        },
+        increase: function(val, event) {
+          val = Number(val) || 1;
+          this.counter += val;
+          console.log(event);
+        },
+        updateCoordinates: function(event) {
+          this.x = event.screenX;
+          this.y = event.screenY;
+        },
+        dummy: function(event) {
+          event.stopPropagation();
+        },
+        updateKey: function(event) {
+          this.key += event.key;
+        },
+        updateText: function(event) {
+          this.text = event.target.value;
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

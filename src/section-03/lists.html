@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="../libs/vue.js"></script>
+
+</head>
+<body>
+
+  <div id="app">
+
+    <input type="text" v-model="ingredient">
+    <button v-on:click="if (ingredient) ingredients.push(ingredient);ingredient=''">Add ingredient</button>
+
+    <ul>
+      <li v-for="ingredient in ingredients">{{ ingredient }}</li>
+    </ul>
+
+    <hr>
+
+    <ul>
+      <li v-for="(ingredient, i) in ingredients">{{ i }}, {{ ingredient }}</li>
+    </ul>
+
+    <hr>
+
+    <template v-for="person in team">
+      <h3>{{ person.name }}</h3>
+      <p>{{ person.role }}</p>
+    </template>
+
+    <hr>
+
+    <template v-for="person in team">
+      <p><div v-for="(value, key) in person">{{ key }}: {{ value }}</div></p>
+    </template>
+
+    <hr>
+
+    <template v-for="n in 10">
+      <span>{{ n }}, </span>
+    </template>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        ingredients: ['Sugar', 'Lime', 'Dark Rum'],
+        team: [
+          { name: "Jon", role: "Assault" },
+          { name: "Ki", role: "Archer" },
+          { name: "Jane", role: "Assassin" }
+        ]
+      }
+    });
+  </script>
+
+</body>
+</html>

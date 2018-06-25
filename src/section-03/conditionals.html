@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="../libs/vue.js"></script>
+
+</head>
+<body>
+
+  <div id="app">
+    <p v-if="show">You see me?</p>
+    <p v-else>You see me, now?</p>
+    <!-- <p v-if="!show">Do you also see me?!?</p> -->
+    <button type="text" v-on:click="show = !show">Toggle</button>
+
+    <hr>
+
+    <button v-on:click="showTemplate = !showTemplate">Show Template</button>
+    <template v-if="showTemplate">
+      <h1>Hello World!</h1>
+      <p>Eh... ciao bello.</p>
+    </template>
+
+    <hr>
+
+    <button v-on:click="hide = !hide">Show/Hide</button>
+    <p v-show="!hide">This is not removed, but hided.</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        show: true,
+        showTemplate: true,
+        hide: false
+      }
+    });
+  </script>
+
+</body>
+</html>
