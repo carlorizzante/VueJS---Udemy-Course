@@ -1,3 +1,12 @@
+:root {
+  --bg-attack: #ff7367;
+  --bg-attack-hover: #ff3f43;
+  --bg-special-attack: #ffaf4f;
+  --bg-special-attack-hover: #ff9a2b;
+  --bg-heal: #aaffb0;
+  --bg-heal-hover: #76ff7e;
+}
+
 .text-center {
     text-align: center;
 }
@@ -59,6 +68,16 @@ button {
     margin: 10px;
 }
 
+.log li.attack {
+  background-color: var(--bg-attack);
+}
+.log li.special-attack {
+  background-color: var(--bg-special-attack);
+}
+.log li.heal {
+  background-color: var(--bg-heal);
+}
+
 #start-game {
     background-color: #aaffb0;
 }
@@ -68,27 +87,33 @@ button {
 }
 
 #attack {
-    background-color: #ff7367;
+    /* background-color: #ff7367; */
+    background-color: var(--bg-attack);
 }
 
 #attack:hover {
-    background-color: #ff3f43;
+    /* background-color: #ff3f43; */
+    background-color: var(--bg-attack-hover);
 }
 
 #special-attack {
-    background-color: #ffaf4f;
+    /* background-color: #ffaf4f; */
+    background-color: var(--bg-special-attack);
 }
 
 #special-attack:hover {
-    background-color: #ff9a2b;
+    /* background-color: #ff9a2b; */
+    background-color: var(--bg-special-attack-hover);
 }
 
 #heal {
-    background-color: #aaffb0;
+    /* background-color: #aaffb0; */
+    background-color: var(--bg-heal);
 }
 
 #heal:hover {
-    background-color: #76ff7e;
+    /* background-color: #76ff7e; */
+    background-color: var(--bg-heal);
 }
 
 #give-up {

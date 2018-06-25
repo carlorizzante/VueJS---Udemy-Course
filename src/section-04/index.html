@@ -46,10 +46,11 @@
       </div>
     </section>
 
-    <section class="row log">
+    <section class="row log" v-if="gameTurns.length">
       <div class="small-12 columns">
         <ul>
-          <li></li>
+          <li v-for="turn in gameTurns"
+            v-bind:class="turn.class">{{ turn.type }}<br>{{ turn.text }}</li>
         </ul>
       </div>
 

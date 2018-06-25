@@ -3,7 +3,8 @@ new Vue({
   data: {
     playerHealth: 100,
     monsterHealth: 100,
-    gameIsRunning: false
+    gameIsRunning: false,
+    gameTurns: []
   },
   methods: {
     startGame() {
@@ -14,24 +15,45 @@ new Vue({
     quitGame() {
       alert("Booooh!!");
       this.gameIsRunning = false;
+      this.gameTurns = [];
     },
     attack() {
       console.log("Attack!!!");
-      this.monsterHealth -= this.calcDamage(9, 3);
-      this.playerHealth  -= this.calcDamage(12, 1);
+      const playerDamage = this.calcDamage(9, 3);
+      const monsteDamage = this.calcDamage(12, 1);
+      this.monsterHealth -= playerDamage;
+      this.playerHealth  -= monsteDamage;
+      this.logActivity({
+        type: 'Attack',
+        class: 'attack',
+        text: `Player deals ${playerDamage} points of damage.\nMonster deals ${monsteDamage} back`
+      });
       this.checkWin();
     },
     specialAttack() {
       console.log("Special Attack!");
-      this.monsterHealth -= this.calcDamage(14, 6);
-      this.playerHealth  -= this.calcDamage(12, 1);
+      const playerDamage = this.calcDamage(14, 6);
+      const monsteDamage = this.calcDamage(12, 1);
+      this.monsterHealth -= playerDamage;
+      this.playerHealth  -= monsteDamage;
+      this.logActivity({
+        type: 'Special Attack',
+        class: 'special-attack',
+        text: `Player deals ${playerDamage} points of damage.\nMonster deals ${monsteDamage} back`
+      });
       this.checkWin();
     },
     heal() {
       console.log("...heal!");
-      this.playerHealth  += 7 - this.calcDamage(12, 1); // Monster attacks anyway
+      const heal = 7 - this.calcDamage(12, 1); // Monster attacks anyway
+      this.playerHealth  += heal;
       this.playerHealth = Math.min(100, this.playerHealth); // Do not pass 100
-
+      this.logActivity({
+        type: 'Heal',
+        class: 'heal',
+        text: `Player attempts to heal, Monster strikes, result ${heal} points gained/lost.`
+      });
+      this.checkWin();
     },
     calcDamage(max, min) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -50,6 +72,10 @@ new Vue({
       } else {
         return false;
       }
+    },
+    logActivity: function(log) {
+      this.gameTurns.unshift(log);
+      console.log(log.type, log.text);
     }
   }
 });
